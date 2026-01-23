@@ -3,11 +3,16 @@ package com.example.task.task.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.task.task.excepciones.TaskException;
+
 public class TaskRepository {
 
     List<Task> tasks = new ArrayList<>();
 
     public void save(Task task) {
+        if (task == null) {
+            throw new TaskException("La tarea no puede ser nula");
+        }
         tasks.add(task);
     }
 
@@ -25,27 +30,53 @@ public class TaskRepository {
     }
 
     public void remove(String id) {
-        //almacemos la tarea en una variable
+        // almacemos la tarea en una variable
         Task task = findById(id);
-        //si la tarea es diferente de nulll
+
+         if (task == null) {
+            throw new TaskException("La tarea no puede ser nula");
+        }
+        // si la tarea es diferente de nulll
         if (task != null) {
             tasks.remove(task);
         }
     }
 
+     public void remove(Task task) {
+        if (task == null) {
+            throw new TaskException("La tarea no puede ser nula");
+        }
+        // le decimos que si a tarea no esta en la lista, ! significa NO
+        if (!tasks.contains(task)) {
+           // no esta en la lista, mandamos excepcion
+            throw new TaskException("La tarea no existe en el repositorio");
+        } else {
+
+            // si esta en la lista la eliminamos
+            tasks.remove(task);
+        }
+    }
 
     public List<Task> findAll() {
         return tasks;
     }
 
-    public int findByIndexById(String id){
-        //recorremos la lista con el tasks.size regresa el numero de elementos de la lista
+    public int findByIndexById(String id) {
+        // recorremos la lista con el tasks.size regresa el numero de elementos de la
+        // lista
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).getId().equals(id)) {
                 return i;
             }
         }
         return -1;
+
+    }
+
+    public void update(Task task) {
+        // buscamos el index de la tarea a actualizar
+        int index = findByIndexById(task.getId());
+        tasks.set(index, task);
 
     }
 
