@@ -1,5 +1,7 @@
 package com.example.task.task.model;
 
+import java.util.Objects;
+
 public class Task {
 
     private String id;
@@ -44,6 +46,32 @@ public class Task {
     public void setCompleted(Boolean completed) {
         this.completed = completed;
     }
+
+    
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, descrption);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        //¿Es la misma referencia en memoria?
+        if (this == o) return true;
+        //¿Es null o de diferente clase?
+        if (o == null || getClass() != o.getClass()) return false;
+
+        //Convertir el Object a Task
+        Task task = (Task) o;
+        return Objects.equals(id, task.id) &&
+               Objects.equals(title, task.title) &&
+               Objects.equals(descrption, task.descrption); 
+        
+    }
+
+    //NOTE: Si dos objetos son iguales según equals(), DEBEN tener el mismo hashCode()
+
 
     @Override
     public String toString() {

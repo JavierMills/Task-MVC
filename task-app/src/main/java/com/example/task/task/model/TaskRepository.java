@@ -9,7 +9,7 @@ public class TaskRepository {
 
     List<Task> tasks = new ArrayList<>();
 
-    public void save(Task task) {
+    public void save(Task task) throws TaskException {
         if (task == null) {
             throw new TaskException("La tarea no puede ser nula");
         }
@@ -29,12 +29,12 @@ public class TaskRepository {
         return null;
     }
 
-    public void remove(String id) {
+    public void remove(String id) throws TaskException {
         // almacemos la tarea en una variable
         Task task = findById(id);
 
          if (task == null) {
-            throw new TaskException("La tarea no puede ser nula");
+            throw new TaskException("La tarea no exciste en la lista");
         }
         // si la tarea es diferente de nulll
         if (task != null) {
@@ -42,7 +42,7 @@ public class TaskRepository {
         }
     }
 
-     public void remove(Task task) {
+     public void remove(Task task) throws TaskException {
         if (task == null) {
             throw new TaskException("La tarea no puede ser nula");
         }
@@ -57,7 +57,10 @@ public class TaskRepository {
         }
     }
 
-    public List<Task> findAll() {
+    public List<Task> findAll() throws TaskException {
+        if(tasks.isEmpty()){
+            throw new TaskException("No hay tareas en la lista");
+        }
         return tasks;
     }
 
@@ -73,9 +76,19 @@ public class TaskRepository {
 
     }
 
-    public void update(Task task) {
+    public void update(Task task) throws TaskException {
+
+         if (task == null) {
+            throw new TaskException("La tarea no puede ser nula");
+        }
+
         // buscamos el index de la tarea a actualizar
         int index = findByIndexById(task.getId());
+
+        if(index == -1){
+            throw new TaskException("La tarea no existe en la l");
+
+        }
         tasks.set(index, task);
 
     }
