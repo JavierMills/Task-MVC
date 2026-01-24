@@ -20,6 +20,7 @@ public class TaskController {
 
     public void addTask(String id, String title, String description, Boolean completed) throws TaskValidationException, TaskException {
         validateTaskData(id, title, description, completed);
+        
         Task task = new Task(id, title, description, completed);
         taskRepository.save(task);
     }
