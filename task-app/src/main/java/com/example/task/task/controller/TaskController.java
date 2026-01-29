@@ -18,24 +18,24 @@ public class TaskController {
         this.taskRepository = taskRepository;
     }
 
-    public void addTask(String id, String title, String description, Boolean completed) throws TaskValidationException, TaskException {
+    public void addTask(String id, String title, String description, Boolean completed)
+            throws TaskValidationException, TaskException {
         validateTaskData(id, title, description, completed);
-        
         Task task = new Task(id, title, description, completed);
         taskRepository.save(task);
     }
 
-    public void removeTask(String id) throws TaskValidationException, TaskException{
+    public void removeTask(String id) throws TaskValidationException, TaskException {
         if (id == null || id.trim().isEmpty()) {
             throw new TaskValidationException("ID no puede estar vacio");
         }
-            taskRepository.remove(id);
+        taskRepository.remove(id);
     }
 
-    public void findAll() throws TaskValidationException , TaskException{
+    public void findAll() throws TaskValidationException, TaskException {
         List<Task> tasks = taskRepository.findAll();
 
-        if(tasks.isEmpty()){
+        if (tasks.isEmpty()) {
             throw new TaskValidationException("No hay tareas en la lista");
         }
 
@@ -44,15 +44,40 @@ public class TaskController {
         }
     }
 
-    public void updateTask(String id, String title, String description, Boolean completed) throws TaskValidationException, TaskException {
+    public void findTaskCompleted() throws TaskValidationException, TaskException {
+        List<Task> completedTask = taskRepository.findCompletedTask();
+
+        for (Task task : completedTask) {
+            System.out.println(task);
+        }
+    }
+
+     public void findTaskPending() throws TaskValidationException, TaskException {
+        List<Task> pendingTask = taskRepository.findPendingTask();
+
+        for (Task task : pendingTask) {
+            System.out.println(task);
+        }
+    }
+
+
+    public void updateTask(String id, String title, String description, Boolean completed)
+            throws TaskValidationException, TaskException {
         validateTaskData(id, title, description, completed);
         Task updateTask = new Task(id, title, description, completed);
         taskRepository.update(updateTask);
     }
 
-//ste método podría lanzar una TaskValidationException, así que quién lo llame debe estar preparado para capturarla
-    public void validateTaskData(String id, String title, String description, Boolean completed) throws TaskValidationException {
-        
+    public void updateTaskCompleted(String id, Boolean completed) throws TaskValidationException, TaskException {
+        validateTaskData(id, completed);
+        taskRepository.updateCompleted(id, completed);
+    }
+
+    // ste método podría lanzar una TaskValidationException, así que quién lo llame
+    // debe estar preparado para capturarla
+    public void validateTaskData(String id, String title, String description, Boolean completed)
+            throws TaskValidationException {
+
         if (id == null || id.trim().isEmpty()) {
             throw new TaskValidationException("ID no puede estar vacio");
         }
@@ -63,7 +88,17 @@ public class TaskController {
             throw new TaskValidationException("Description no puede estar vacia");
         }
 
-        if( completed == null){
+        if (completed == null) {
+            throw new TaskValidationException("Completed no puede ser nulo");
+        }
+    }
+
+    public void validateTaskData(String id, Boolean completed) throws TaskValidationException {
+
+        if (id == null || id.trim().isEmpty()) {
+            throw new TaskValidationException("ID no puede estar vacio");
+        }
+        if (completed == null) {
             throw new TaskValidationException("Completed no puede ser nulo");
         }
     }

@@ -7,6 +7,7 @@ import com.example.task.task.excepciones.TaskException;
 
 import java.util.Scanner;
 
+
 public class TaskView {
 
     private final TaskController taskController;
@@ -27,7 +28,10 @@ public class TaskView {
             System.out.println("2. Eliminar Tarea");
             System.out.println("3. Actualizar Tarea");
             System.out.println("4. Mostrar Tareas");
-            System.out.println("5. Salir");
+            System.out.println("5. Actualizar estado de la tarea");
+            System.out.println("6. Mostrar Tareas completas");
+            System.out.println("7. Mostrar Tareas pendientes");
+            System.out.println("8 Salir");
             System.out.print("Seleccione una opción: ");
 
             String option = scanner.nextLine();
@@ -49,6 +53,19 @@ public class TaskView {
                     // código para mostrar tareas
                     break;
                 case "5":
+                    updateCompletedTaskView();
+                    // código para mostrar tareas
+                    break;
+                 case "6":
+                    showCompletedTask();
+                    // código para mostrar tareas
+                    break;
+
+                 case "7":
+                    showPendingTask();
+                    // código para mostrar tareas
+                    break;
+                case "8":
                     System.out.println("Saliendo...");
                     return;
                 default:
@@ -90,7 +107,7 @@ public class TaskView {
         }
     }
 
-    public void showTaskView(){
+    public void showTaskView() {
         try {
             System.out.println("\n Lista de Tareas:");
             taskController.findAll();
@@ -116,57 +133,20 @@ public class TaskView {
         }
     }
 
-    private Task getInputTask(){
-            String id;
-
-            //hacemos un do while para validar que el id no este vacio ya que se debe de ejecutar al menos una vez
-            do{
-                System.out.print("Ingrese ID de la tarea a actualizar: ");
-                id = scanner.nextLine();
-                //como se ejecuto una vez e do while, validamos si el id esta vacio
-                if(id.trim().isEmpty()){
-                    System.out.println("El ID no puede estar vacío.");
-                }
-
-            //validamos por primera vez y si esta vacio volvemos a pedir el id si esta vacio se vuelve a repetir el ciclo
-            }while(id.trim().isEmpty());
-
-            String title;
-
-             do{
-                System.out.print("Ingrese título de la tarea a actualizar: ");
-                title = scanner.nextLine();
-                //como se ejecuto una vez e do while, validamos si el id esta vacio
-                if(title.trim().isEmpty()){
-                    System.out.println("El título no puede estar vacío.");
-                }
-
-            //validamos por primera vez y si esta vacio volvemos a pedir el id si esta vacio se vuelve a repetir el ciclo
-            }while(title.trim().isEmpty());
-
-
-            String description;
-              do{
-                System.out.print("Ingrese descripción de la tarea a actualizar: ");
-                description = scanner.nextLine();
-                //como se ejecuto una vez e do while, validamos si el id esta vacio
-                if(description.trim().isEmpty()){
-                    System.out.println("La descripción no puede estar vacía.");
-                }
-
-            //validamos por primera vez y si esta vacio volvemos a pedir el id si esta vacio se vuelve a repetir el ciclo
-            }while(description.trim().isEmpty());
-
+    public void updateCompletedTaskView() {
+        try {
+            System.out.println("Ingrese en ID de la tarea");
+            String id = scanner.nextLine();
             Boolean completed = null;
 
-            while(completed == null){
+            while (completed == null) {
 
                 System.out.print("¿La tarea está completada? (true/false): ");
                 String input = scanner.nextLine().toLowerCase();
 
-                if(input.equals("true")){
+                if (input.equals("true")) {
                     completed = true;
-                } else if (input.equals("false")){
+                } else if (input.equals("false")) {
                     completed = false;
                 } else {
                     System.out.println("Entrada no válida. Por favor ingrese 'true' o 'false'.");
@@ -174,14 +154,98 @@ public class TaskView {
                 }
 
             }
+            taskController.updateTaskCompleted(id, completed);
+            System.out.println("Estado actual de la tarea actualizado correctamente.");
 
-            
-
-            
-
-            return new Task(id, title, description, completed);
+        } catch (TaskValidationException | TaskException e) {
+            System.out.println("Error al actualizar tarea: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error inesperado: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
+    public void showCompletedTask() {
+        try {
+            System.out.println("Tareas completadas ");
+            taskController.findTaskCompleted();
+        } catch (TaskException | TaskValidationException e) {
+           System.out.println("error " + e.getMessage());
+        }
+    }
+
+    public void showPendingTask() {
+        try {
+            System.out.println("Tareas pendientes ");
+            taskController.findTaskPending();
+        } catch (TaskException | TaskValidationException e) {
+           System.out.println("error " + e.getMessage());
+        }
+    }
+
+    private Task getInputTask() {
+        String id;
+
+        // hacemos un do while para validar que el id no este vacio ya que se debe de
+        // ejecutar al menos una vez
+        do {
+            System.out.print("Ingrese ID de la tarea a actualizar: ");
+            id = scanner.nextLine();
+            // como se ejecuto una vez e do while, validamos si el id esta vacio
+            if (id.trim().isEmpty()) {
+                System.out.println("El ID no puede estar vacío.");
+            }
+
+            // validamos por primera vez y si esta vacio volvemos a pedir el id si esta
+            // vacio se vuelve a repetir el ciclo
+        } while (id.trim().isEmpty());
+
+        String title;
+
+        do {
+            System.out.print("Ingrese título de la tarea a actualizar: ");
+            title = scanner.nextLine();
+            // como se ejecuto una vez e do while, validamos si el id esta vacio
+            if (title.trim().isEmpty()) {
+                System.out.println("El título no puede estar vacío.");
+            }
+
+            // validamos por primera vez y si esta vacio volvemos a pedir el id si esta
+            // vacio se vuelve a repetir el ciclo
+        } while (title.trim().isEmpty());
+
+        String description;
+        do {
+            System.out.print("Ingrese descripción de la tarea a actualizar: ");
+            description = scanner.nextLine();
+            // como se ejecuto una vez e do while, validamos si el id esta vacio
+            if (description.trim().isEmpty()) {
+                System.out.println("La descripción no puede estar vacía.");
+            }
+
+            // validamos por primera vez y si esta vacio volvemos a pedir el id si esta
+            // vacio se vuelve a repetir el ciclo
+        } while (description.trim().isEmpty());
+
+        Boolean completed = null;
+
+        while (completed == null) {
+
+            System.out.print("¿La tarea está completada? (true/false): ");
+            String input = scanner.nextLine().toLowerCase();
+
+            if (input.equals("true")) {
+                completed = true;
+            } else if (input.equals("false")) {
+                completed = false;
+            } else {
+                System.out.println("Entrada no válida. Por favor ingrese 'true' o 'false'.");
+
+            }
+
+        }
+
+        return new Task(id, title, description, completed);
+    }
 
 }
-

@@ -51,7 +51,7 @@ public class Task {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, descrption);
+        return Objects.hash(id);
     }
 
     @Override
@@ -64,9 +64,7 @@ public class Task {
 
         //Convertir el Object a Task
         Task task = (Task) o;
-        return Objects.equals(id, task.id) &&
-               Objects.equals(title, task.title) &&
-               Objects.equals(descrption, task.descrption); 
+        return Objects.equals(id, task.id);
         
     }
 
