@@ -47,7 +47,6 @@ public class Task {
         this.completed = completed;
     }
 
-    
 
     @Override
     public int hashCode() {
