@@ -22,7 +22,5 @@ jobs:
         run: mvn clean package -DskipTests
       - name: Ejecutar aplicación
         working-directory: task-app
-        run: java -jar target/task-app-1.0-SNAPSHOT.jar
-      - name: Ejecutar aplicación
-        run: | 
-          echo "4" | java -jar target/task-app-1.0-SNAPSHOT.jar
+        run: |
+          printf "4" | java -jar target/task-app-1.0-SNAPSHOT.jar
