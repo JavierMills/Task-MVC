@@ -1,0 +1,23 @@
+name: Run Java App (Java 17)
+on:
+  workflow_dispatch:
+jobs:
+  run-app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+      - name: Configurar Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - name: Ver versión de Java
+        run: java -version
+      - name: Ver versión de Maven
+        run: mvn -version
+      - name: Compilar aplicación
+        run: mvn clean package -DskipTests
+      - name: Ejecutar aplicación
+        run: java -jar target/*.jar
