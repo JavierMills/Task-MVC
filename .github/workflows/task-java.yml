@@ -25,4 +25,4 @@ jobs:
         run: java -jar target/task-app-1.0-SNAPSHOT.jar
       - name: Ejecutar aplicación
         run: | 
-          echo "1" | java -jar target/task-app-1.0-SNAPSHOT.jar
+          echo "4" | java -jar target/task-app-1.0-SNAPSHOT.jar
