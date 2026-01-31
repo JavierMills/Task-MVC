@@ -18,6 +18,8 @@ jobs:
       - name: Ver versión de Maven
         run: mvn -version
       - name: Compilar aplicación
+        working-directory: task-app
         run: mvn clean package -DskipTests
       - name: Ejecutar aplicación
+        working-directory: task-app
         run: java -jar target/*.jar
