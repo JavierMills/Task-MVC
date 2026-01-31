@@ -23,4 +23,4 @@ jobs:
       - name: Ejecutar aplicación
         working-directory: task-app
         run: |
-          printf "4" | java -jar target/task-app-1.0-SNAPSHOT.jar
+          printf "8" | java -jar target/task-app-1.0-SNAPSHOT.jar
