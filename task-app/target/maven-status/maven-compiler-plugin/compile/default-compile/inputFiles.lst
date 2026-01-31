@@ -1,0 +1,8 @@
+/Users/javiermills/Documents/Java/MVC/Task-MVC/task-app/src/main/java/com/example/task/Main.java
+/Users/javiermills/Documents/Java/MVC/Task-MVC/task-app/src/main/java/com/example/task/task/controller/TaskController.java
+/Users/javiermills/Documents/Java/MVC/Task-MVC/task-app/src/main/java/com/example/task/task/excepciones/TaskException.java
+/Users/javiermills/Documents/Java/MVC/Task-MVC/task-app/src/main/java/com/example/task/task/excepciones/TaskValidationException.java
+/Users/javiermills/Documents/Java/MVC/Task-MVC/task-app/src/main/java/com/example/task/task/model/Task.java
+/Users/javiermills/Documents/Java/MVC/Task-MVC/task-app/src/main/java/com/example/task/task/model/TaskRepository.java
+/Users/javiermills/Documents/Java/MVC/Task-MVC/task-app/src/main/java/com/example/task/task/persistence/TaskPersistence.java
+/Users/javiermills/Documents/Java/MVC/Task-MVC/task-app/src/main/java/com/example/task/task/view/TaskView.java

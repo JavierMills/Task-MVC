@@ -1,0 +1,9 @@
+com/example/task/task/model/Task.class
+com/example/task/task/controller/TaskController.class
+com/example/task/task/model/TaskRepository.class
+com/example/task/task/view/TaskView.class
+com/example/task/task/persistence/TaskPersistence$1.class
+com/example/task/Main.class
+com/example/task/task/excepciones/TaskValidationException.class
+com/example/task/task/persistence/TaskPersistence.class
+com/example/task/task/excepciones/TaskException.class
