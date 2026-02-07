@@ -1,6 +1,6 @@
 name: Output
 on:
-  workflow_dispatch:
+  push:
 jobs:
   info:
     runs-on: ubuntu-latest
